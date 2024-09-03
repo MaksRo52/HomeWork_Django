@@ -14,11 +14,14 @@ class Product(models.Model):
                                 null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    manufactured_at = models.DateTimeField(verbose_name="Дата производства продукта",
-                                           default=False)
+    manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта',
+                                           editable=False,
+                                           blank=True,
+                                           null=True)
 
     class Meta:
         verbose_name = 'Продукт'
+
         verbose_name_plural = 'Продукты'
         ordering = ['name', 'price', 'created_at', 'updated_at', 'category']
 
