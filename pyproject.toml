@@ -12,7 +12,6 @@ psycopg2-binary = "^2.9.9"
 pillow = "^10.4.0"
 ipython = "^8.27.0"
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
