@@ -1,6 +1,5 @@
 from catalog.models import Product, Category
 import json
-from pathlib import Path
 from django.core.management import BaseCommand
 
 
