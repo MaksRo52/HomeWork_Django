@@ -12,3 +12,9 @@ def home(request):
 
 def contacts(request):
     return render(request, 'contacts.html')
+
+
+def product_info(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {"product": product}
+    return render(request, 'product_info.html', context)
