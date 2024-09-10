@@ -8,12 +8,7 @@
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
                 </div>
-                <div class="card-body">
-                    <img class="w-100" src="{{ product.image | mymedia }}">
-                    <h4 class="card-text">Категория: {{product.category }}</h4>
-                  <p class="card-text">Описание: {{product.description}} </p>
-                    <p class="card-text">Цена: {{product.price}} </p>
-                </div>
+                {% include 'includes/inc_description.html' %}
             </div>
         </div>
     </div>
