@@ -1,8 +1,10 @@
 {% load tags %}
 {% if product.image %}
-<img class="w-100" src="{{product.image | mymedia}}">
+<img class="w-100" src="{{ product.image | mymedia }}">
 {% elif object.image %}
 <img class="w-100" src="{{ object.image | mymedia }}">
+{% elif blog.image %}
+<img class="w-100" src="{{ blog.image | mymedia }}">
 {% else %}
-<img class="w-100" src="media/no_image.jpg">
+<img class="w-100" src="../media/no_image.jpg">
 {% endif %}
