@@ -10,6 +10,7 @@
                 </div>
                 <div class="card-body">
                     {% include 'catalog/includes/inc_image.html' %}
+                    <p class="card-text">Идентификатор: {{object.slug}}</p>
                     <p class="card-text">Содержимое: {{object.content}}</p>
                     <p class="card-text">Дата создания: {{object.created_at}}</p>
                     <p class="card-text">Кол-во просмотров: {{object.views}}</p>
