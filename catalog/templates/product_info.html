@@ -3,20 +3,14 @@
 {% block content %}
 <div class="container">
     <div class="row text-center">
-      {% for product in products %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
                 </div>
-                <div class="card-body">
-                    <img class="w-100" src="{{ product.image | mymedia }}">
-                    <h4 class="card-text">Категория: {{product.category}}</h4>
-                    <a class="btn btn-primary" href="{% url 'catalog:product_info' product.pk%}" role="button" aria-disabled="true">Посмотреть</a>
-                </div>
+                {% include 'includes/inc_description.html' %}
             </div>
         </div>
-      {% endfor %}
     </div>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
