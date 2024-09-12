@@ -11,7 +11,7 @@ django = "^5.1"
 psycopg2-binary = "^2.9.9"
 pillow = "^10.4.0"
 ipython = "^8.27.0"
-python-slugify = "^8.0.4"
+python-slugify = {extras = ["unidecode"], version = "^8.0.4"}
 
 [build-system]
 requires = ["poetry-core"]
