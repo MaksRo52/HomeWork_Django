@@ -10,7 +10,7 @@
                     <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
                 </div>
                 <div class="card-body">
-                    <img class="w-100" src="{{ product.image | mymedia }}">
+                    {% include 'catalog/includes/inc_image.html' %}
                     <h4 class="card-text">Категория: {{product.category}}</h4>
                     <a class="btn btn-primary" href="{% url 'catalog:product_info' product.pk%}" role="button" aria-disabled="true">Посмотреть</a>
                 </div>

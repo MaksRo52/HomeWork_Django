@@ -1,7 +1,0 @@
-{% load tags %}
-<div class="card-body">
-                    <img class="w-100" src="{{ object.image | mymedia }}">
-                    <h4 class="card-text">Категория: {{object.category }}</h4>
-                  <p class="card-text">Описание: {{object.description |slice:"100"}} </p>
-                    <p class="card-text">Цена: {{object.price}} </p>
-                </div>

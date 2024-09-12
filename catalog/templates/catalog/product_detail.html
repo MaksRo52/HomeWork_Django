@@ -8,7 +8,12 @@
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{object.name}}</h4>
                 </div>
-                {% include 'catalog/includes/inc_description.html' %}
+                <div class="card-body">
+                    {% include 'catalog/includes/inc_image.html' %}
+                    <h4 class="card-text">Категория: {{object.category}}</h4>
+                  <p class="card-text">Описание: {{object.description |slice:"100"}} </p>
+                    <p class="card-text">Цена: {{object.price}} </p>
+                </div>
             </div>
         </div>
     </div>
