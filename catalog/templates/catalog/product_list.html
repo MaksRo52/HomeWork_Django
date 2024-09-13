@@ -2,8 +2,8 @@
 {% load tags %}
 {% block content %}
 <div class="container">
-    <a class="btn btn-outline-primary mx-auto" href="{% url 'catalog:product_create' %}">Создать блог</a>
     <div class="row text-center">
+        <a class="btn btn-outline-primary mx-auto" href="{% url 'catalog:product_create' %}" style="margin-bottom: 50px">Добавить продукт</a>
       {% for product in object_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
