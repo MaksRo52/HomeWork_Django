@@ -20,11 +20,17 @@ class ProductForm(StyleFormMixin, ModelForm):
 
     def clean_name(self):
         cleaned_data = self.cleaned_data.get("name")
-
-        if (
-            cleaned_data
-            in "казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар"
-        ):
+        if cleaned_data.lower() in [
+            "казино",
+            "криптовалюта",
+            "крипта",
+            "биржа",
+            "дешево",
+            "бесплатно",
+            "обман",
+            "полиция",
+            "радар",
+        ]:
             raise forms.ValidationError(
                 "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
                 "дешево, бесплатно, обман, полиция, радар."
@@ -34,11 +40,17 @@ class ProductForm(StyleFormMixin, ModelForm):
 
     def clean_description(self):
         cleaned_data = self.cleaned_data.get("description")
-
-        if (
-            cleaned_data
-            in "казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар"
-        ):
+        if cleaned_data.lower() in [
+            "казино",
+            "криптовалюта",
+            "крипта",
+            "биржа",
+            "дешево",
+            "бесплатно",
+            "обман",
+            "полиция",
+            "радар",
+        ]:
             raise forms.ValidationError(
                 "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
                 "дешево, бесплатно, обман, полиция, радар."
@@ -51,6 +63,14 @@ class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
         fields = "__all__"
+
+    def clean_active(self):
+        cleaned_data = self.cleaned_data.get("active")
+
+        if cleaned_data and not self.instance.product and "active" > 1:
+            raise forms.ValidationError("Версия должна привязана к продукту.")
+
+        return cleaned_data
 
 
 class CategoryForm(StyleFormMixin, ModelForm):
