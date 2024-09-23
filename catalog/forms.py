@@ -1,6 +1,6 @@
 from django.forms import ModelForm, forms
 
-from catalog.models import Product
+from catalog.models import Product, Version
 
 
 class ProductForm(ModelForm):
@@ -11,17 +11,33 @@ class ProductForm(ModelForm):
     def clean_name(self):
         cleaned_data = self.cleaned_data.get("name")
 
-        if cleaned_data in 'казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар':
-            raise forms.ValidationError("Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                                        "дешево, бесплатно, обман, полиция, радар.")
+        if (
+            cleaned_data
+            in "казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар"
+        ):
+            raise forms.ValidationError(
+                "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
+                "дешево, бесплатно, обман, полиция, радар."
+            )
 
         return cleaned_data
 
     def clean_description(self):
         cleaned_data = self.cleaned_data.get("description")
 
-        if cleaned_data in 'казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар':
-            raise forms.ValidationError("Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                                        "дешево, бесплатно, обман, полиция, радар.")
+        if (
+            cleaned_data
+            in "казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар"
+        ):
+            raise forms.ValidationError(
+                "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
+                "дешево, бесплатно, обман, полиция, радар."
+            )
 
         return cleaned_data
+
+
+class VersionForm(forms.Form):
+    class Meta:
+        model = Version
+        fields = "__all__"
