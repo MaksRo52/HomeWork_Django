@@ -2,8 +2,13 @@
 {% block content %}
 <div class="container">
     <form class ="text-body-color mb-3 form-control" method="post" enctype="multipart/form-data">
-        <div class="col-6">
+        <div class="col-8">
             <div class="card">
+                {% if object %}
+                <p class="card-text">Редактирование</p>
+                {% else %}
+                <p class="card-text">Создание</p>
+                {% endif %}
                 <div class="card-body">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -18,9 +23,11 @@
                 <a class="btn btn-primary" href="{% url 'catalog:home' %}" role="button">Отмена</a>
                 </div>
             </div>
-        <div class="col-6">
+        {% if object %}
+        <div class="col-4">
             <div class="card">
                 <div class="card-body">
+                    <p class="card-text">Версия продукта</p>
                     {{ formset.management_form }}
                     {% for form in formset.forms %}
                     {{ form.as_p }}
@@ -28,6 +35,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </form>
 </div>
 

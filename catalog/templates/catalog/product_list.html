@@ -13,7 +13,18 @@
                 <div class="card-body">
                     {% include 'catalog/includes/inc_image.html' %}
                     <h4 class="card-text">Категория: {{product.category}}</h4>
-                    <a class="btn btn-primary" href="{% url 'catalog:product_info' product.pk%}" role="button" aria-disabled="true">Посмотреть</a>
+                    <div class="card-footer">
+                      {% for version in product.versions.all %}
+                      {% if version.active %}
+                      <p>Версия: {{ version.version }} Название: {{ version.name }}</p>
+                      {% endif %}
+                      {% endfor %}
+                  </div>
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'catalog:product_info' product.pk%}" role="button" aria-disabled="true">Посмотреть</a>
+                        <a class="btn btn-sm btn-outline-success" href="{% url 'catalog:product_update' product.pk %}" role="button" aria-disabled="true">Изменить</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'blog:blog_delete' product.pk %}" role="button">Удалить</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,23 @@
+{% extends 'catalog/home.html' %}
+{% load tags %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-10">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{object.title}} </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">{% csrf_token %}
+                    <p>Вы уверены, что хотите удалить товар "{{ object }}"?</p>
+                    {{ form }}
+                        <input class="btn btn-primary" type="submit" value="Да">
+                        <a class="btn btn-primary" href="{% url 'catalog:home' %}" role="button">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

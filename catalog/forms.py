@@ -1,9 +1,16 @@
 from django.forms import ModelForm, forms
 
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 
 
-class ProductForm(ModelForm):
+class StyleFormMixin(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            pass
+
+
+class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         fields = ["name", "image", "description", "price", "category"]
@@ -37,7 +44,13 @@ class ProductForm(ModelForm):
         return cleaned_data
 
 
-class VersionForm(forms.Form):
+class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
+        fields = "__all__"
+
+
+class CategoryForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Category
         fields = "__all__"

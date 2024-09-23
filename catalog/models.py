@@ -60,7 +60,8 @@ class Category(models.Model):
 
 class Version(models.Model):
     product = models.ForeignKey(
-        "Product",
+        Product,
+        related_name="versions",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
