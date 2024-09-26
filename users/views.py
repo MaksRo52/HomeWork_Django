@@ -63,3 +63,8 @@ class RecoveryPasswordView(PasswordResetView):
                 recipient_list=[user.email],
             )
         return redirect(reverse("users:login"))
+
+
+class UserProfileView(generic.DetailView):
+    model = User
+    template_name = "users/profile.html"

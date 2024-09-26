@@ -9,7 +9,7 @@ from django.views import generic
 
 class BlogDetailView(generic.DetailView):
     model = Blog
-    object=None
+    object = None
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)

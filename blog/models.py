@@ -1,6 +1,8 @@
 from django.db import models
 from slugify import slugify
 
+from users.models import User
+
 
 # Create your models here.
 class Blog(models.Model):
@@ -10,6 +12,7 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='media/', verbose_name='Изображение', help_text="Загрузите изображение статьи.",
                               null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='автор', blank=True, null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликовано')
     views = models.IntegerField(default=0, verbose_name='Просмотры')
 

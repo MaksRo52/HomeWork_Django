@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm, forms, BooleanField
 
 from catalog.models import Product, Version, Category
@@ -20,41 +21,45 @@ class ProductForm(StyleFormMixin, ModelForm):
 
     def clean_name(self):
         cleaned_data = self.cleaned_data.get("name")
-        if cleaned_data.lower() in [
-            "казино",
-            "криптовалюта",
-            "крипта",
-            "биржа",
-            "дешево",
-            "бесплатно",
-            "обман",
-            "полиция",
-            "радар",
-        ]:
-            raise forms.ValidationError(
-                "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                "дешево, бесплатно, обман, полиция, радар."
-            )
+        words = cleaned_data.split(" ")
+        for word in words:
+            if word in [
+                "казино",
+                "криптовалюта",
+                "крипта",
+                "биржа",
+                "дешево",
+                "бесплатно",
+                "обман",
+                "полиция",
+                "радар",
+            ]:
+                raise forms.ValidationError(
+                    "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
+                    "дешево, бесплатно, обман, полиция, радар."
+                )
 
         return cleaned_data
 
     def clean_description(self):
         cleaned_data = self.cleaned_data.get("description")
-        if cleaned_data.lower() in [
-            "казино",
-            "криптовалюта",
-            "крипта",
-            "биржа",
-            "дешево",
-            "бесплатно",
-            "обман",
-            "полиция",
-            "радар",
-        ]:
-            raise forms.ValidationError(
-                "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                "дешево, бесплатно, обман, полиция, радар."
-            )
+        words = cleaned_data.split(" ")
+        for word in words:
+            if word in [
+                "казино",
+                "криптовалюта",
+                "крипта",
+                "биржа",
+                "дешево",
+                "бесплатно",
+                "обман",
+                "полиция",
+                "радар",
+            ]:
+                raise forms.ValidationError(
+                    "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
+                    "дешево, бесплатно, обман, полиция, радар."
+                )
 
         return cleaned_data
 

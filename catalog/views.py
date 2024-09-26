@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.views import generic
@@ -7,7 +8,9 @@ from catalog.forms import ProductForm, VersionForm, CategoryForm
 from catalog.models import Product, Category, Version
 
 
-class ProductListView(generic.ListView):
+class ProductListView(LoginRequiredMixin, generic.ListView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Product
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -32,6 +35,11 @@ class ProductCreateView(generic.CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:home")
+
+    def form_valid(self, form):
+        product = form.save()
+        Version.objects.create(product=product, active=True)
+        return super().form_valid(form)
 
 
 class ProductUpdateView(generic.UpdateView):
