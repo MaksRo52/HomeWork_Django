@@ -8,9 +8,7 @@ from catalog.forms import ProductForm, VersionForm, CategoryForm
 from catalog.models import Product, Category, Version
 
 
-class ProductListView(LoginRequiredMixin, generic.ListView):
-    login_url = "users:login"
-    redirect_field_name = "redirect_to"
+class ProductListView(generic.ListView):
     model = Product
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -27,11 +25,13 @@ class ContactsView(generic.TemplateView):
     template_name = "catalog/contacts.html"
 
 
-class ProductDetailView(generic.DetailView):
+class ProductDetailView(LoginRequiredMixin, generic.DetailView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Product
 
 
-class ProductCreateView(generic.CreateView):
+class ProductCreateView(LoginRequiredMixin, generic.CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:home")
@@ -39,10 +39,15 @@ class ProductCreateView(generic.CreateView):
     def form_valid(self, form):
         product = form.save()
         Version.objects.create(product=product, active=True)
+        user = self.request.user
+        product.autor = user
+        product.save()
         return super().form_valid(form)
 
 
-class ProductUpdateView(generic.UpdateView):
+class ProductUpdateView(LoginRequiredMixin, generic.UpdateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:home")
@@ -70,16 +75,22 @@ class ProductUpdateView(generic.UpdateView):
             )
 
 
-class CategoryCreateView(generic.CreateView):
+class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Category
     form_class = CategoryForm
 
 
-class ProductDeleteView(generic.DeleteView):
+class ProductDeleteView(LoginRequiredMixin, generic.DeleteView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Product
     success_url = reverse_lazy("catalog:home")
 
 
-class VersionCreateView(generic.CreateView):
+class VersionCreateView(LoginRequiredMixin, generic.CreateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Version
     form_class = VersionForm

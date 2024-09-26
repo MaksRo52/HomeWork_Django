@@ -54,3 +54,9 @@ class BlogCreateView(generic.CreateView):
             new_blog.slug = slugify(new_blog.title)
             new_blog.save()
         return super().form_valid(form)
+
+    def form_user(self, form):
+        blog = form.save()
+        blog.autor = self.request.user
+        blog.save()
+        return super().form_valid(form)

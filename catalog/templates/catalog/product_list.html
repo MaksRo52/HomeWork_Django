@@ -3,7 +3,9 @@
 {% block content %}
 <div class="container">
     <div class="row text-center">
+        {% if user.is_authenticated%}
         <a class="btn btn-outline-primary mx-auto" href="{% url 'catalog:product_create' %}" style="margin-bottom: 50px">Добавить продукт</a>
+        {% endif %}
       {% for product in object_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">

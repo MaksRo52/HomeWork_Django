@@ -7,7 +7,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=100, verbose_name="Имя", help_text="Введите название."
     )
-    autor = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='автор')
+    autor = models.ForeignKey(User, verbose_name='автор', blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(
         verbose_name="Описание", help_text="Введите описание."
     )
@@ -27,13 +27,12 @@ class Product(models.Model):
         help_text="Введите цену в рублях.",
         null=True,
     )
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='автор',blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     manufactured_at = models.DateTimeField(
         verbose_name="Дата производства продукта", editable=False, blank=True, null=True
     )
-
 
     class Meta:
         verbose_name = "Продукт"

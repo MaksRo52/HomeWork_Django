@@ -17,7 +17,8 @@ class StyleFormMixin(ModelForm):
 class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
-        fields = ["name", "image", "description", "price", "category"]
+        fields = ("name", "image", "description", "price", "category")
+
 
     def clean_name(self):
         cleaned_data = self.cleaned_data.get("name")
