@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
+from blog.forms import BlogForm
 from blog.models import Blog
 from django.views import generic
 # Create your views here.
@@ -34,7 +35,7 @@ class BlogDeleteView(generic.DeleteView):
 
 class BlogUpdateView(generic.UpdateView):
     model = Blog
-    fields = ['title', 'content', 'status', 'image']
+    form_class = BlogForm
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
@@ -43,7 +44,7 @@ class BlogUpdateView(generic.UpdateView):
 
 class BlogCreateView(generic.CreateView):
     model = Blog
-    fields = ['title', 'content', 'status', 'image']
+    form_class = BlogForm
     success_url = reverse_lazy('blog:blog_list')
 
     def form_valid(self, form):
