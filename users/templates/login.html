@@ -1,0 +1,22 @@
+{% extends 'catalog/home.html' %}
+{% block content %}
+<div class="container">
+    <form class ="text-body-color mb-3 form-control" method="post" enctype="multipart/form-data">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-success">
+                    Войти
+                </button>
+                <a class="btn btn-warning" href="{% url 'users:recovery' %}" >Забыли пароль?</a>
+                <a class="btn btn-primary" href="{% url 'users:register' %}" >Регистрация</a>
+                <a class="btn btn-danger" href="{% url 'catalog:home' %}" role="button">Отмена</a>
+                </div>
+            </div>
+    </form>
+</div>
+
+{% endblock %}
