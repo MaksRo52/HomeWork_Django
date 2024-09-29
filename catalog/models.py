@@ -7,7 +7,9 @@ class Product(models.Model):
     name = models.CharField(
         max_length=100, verbose_name="Имя", help_text="Введите название."
     )
-    autor = models.ForeignKey(User, verbose_name='автор', blank=True, null=True, on_delete=models.SET_NULL)
+    autor = models.ForeignKey(
+        User, verbose_name="автор", blank=True, null=True, on_delete=models.SET_NULL
+    )
     description = models.TextField(
         verbose_name="Описание", help_text="Введите описание."
     )
@@ -33,12 +35,14 @@ class Product(models.Model):
     manufactured_at = models.DateTimeField(
         verbose_name="Дата производства продукта", editable=False, blank=True, null=True
     )
+    is_published = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Продукт"
 
         verbose_name_plural = "Продукты"
         ordering = ["name", "price", "created_at", "updated_at", "category"]
+        permissions = [("set_published", "Can publish posts")]
 
     def __str__(self):
         return self.name

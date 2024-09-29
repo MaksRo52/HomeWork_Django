@@ -19,7 +19,6 @@ class ProductForm(StyleFormMixin, ModelForm):
         model = Product
         fields = ("name", "image", "description", "price", "category")
 
-
     def clean_name(self):
         cleaned_data = self.cleaned_data.get("name")
         words = cleaned_data.split(" ")

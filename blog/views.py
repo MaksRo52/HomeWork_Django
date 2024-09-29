@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from blog.forms import BlogForm
 from blog.models import Blog
 from django.views import generic
+
 # Create your views here.
 
 
@@ -23,34 +24,35 @@ class BlogListView(generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        status_list = Blog.objects.filter(status='True').order_by('-created_at')
-        context['status_list'] = status_list
+        status_list = Blog.objects.filter(status="True").order_by("-created_at")
+        context["status_list"] = status_list
         return context
 
 
 class BlogDeleteView(generic.DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")
 
 
 class BlogUpdateView(generic.UpdateView):
     model = Blog
     form_class = BlogForm
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")
 
     def get_success_url(self):
-        return reverse_lazy('blog:blog_view', args=[self.kwargs['slug']])
+        return reverse_lazy("blog:blog_view", args=[self.kwargs["slug"]])
 
 
 class BlogCreateView(generic.CreateView):
     model = Blog
     form_class = BlogForm
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")
 
     def form_valid(self, form):
         if form.is_valid():
             new_blog = form.save()
             from django.utils.text import slugify
+
             new_blog.slug = slugify(new_blog.title)
             new_blog.save()
         return super().form_valid(form)

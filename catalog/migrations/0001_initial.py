@@ -8,39 +8,100 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Введите название.', max_length=100, verbose_name='Имя')),
-                ('description', models.TextField(help_text='Введите описание.', verbose_name='Описание')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Введите название.",
+                        max_length=100,
+                        verbose_name="Имя",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        help_text="Введите описание.", verbose_name="Описание"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
-                'ordering': ['name'],
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Введите название.', max_length=100, verbose_name='Имя')),
-                ('description', models.TextField(help_text='Введите описание.', verbose_name='Описание')),
-                ('image', models.ImageField(help_text='Загрузите изображение продукта.', upload_to='product/photo', verbose_name='Фото')),
-                ('price', models.IntegerField(blank=True, help_text='Введите цену в рублях.', null=True, verbose_name='Стоимость')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.category', verbose_name='Категория')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Введите название.",
+                        max_length=100,
+                        verbose_name="Имя",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        help_text="Введите описание.", verbose_name="Описание"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        help_text="Загрузите изображение продукта.",
+                        upload_to="product/photo",
+                        verbose_name="Фото",
+                    ),
+                ),
+                (
+                    "price",
+                    models.IntegerField(
+                        blank=True,
+                        help_text="Введите цену в рублях.",
+                        null=True,
+                        verbose_name="Стоимость",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="catalog.category",
+                        verbose_name="Категория",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Продукт',
-                'verbose_name_plural': 'Продукты',
-                'ordering': ['name', 'price', 'created_at', 'updated_at', 'category'],
+                "verbose_name": "Продукт",
+                "verbose_name_plural": "Продукты",
+                "ordering": ["name", "price", "created_at", "updated_at", "category"],
             },
         ),
     ]
