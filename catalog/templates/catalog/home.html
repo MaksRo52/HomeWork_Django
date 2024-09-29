@@ -15,11 +15,12 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
         {% if user.is_authenticated %}
         <a class="p-2 btn btn-primary" href="{% url 'users:profile' request.user.pk%}">Профиль</a>
-        <a class="p-2 btn btn-danger" href="{% url 'users:logout' %}" >Выход</a>
-<!--        <form action="{% url 'users:logout' %}" method="post">-->
-<!--            {% csrf_token %}-->
-<!--            <button type="submit">Выйти</button>-->
-<!--        </form>                Можно было бы использовать в Django выше 4.2-->
+<!--        <a class="p-2 btn btn-danger" href="{% url 'users:logout' %}" >Выход</a>-->
+<!--        Можно было бы использовать в Django выше 4.2-->
+        <form action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
          {% else %}
         <a class="p-2 btn btn-success" href="{% url 'users:login' %}" >Вход</a>
         {% endif %}

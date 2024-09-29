@@ -1,12 +1,13 @@
 import secrets
 
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-
+from django.utils.crypto import get_random_string
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm
 from users.models import User
@@ -50,10 +51,10 @@ class RecoveryPasswordView(PasswordResetView):
         email = form.cleaned_data["email"]
         user = User.objects.get(email=email)
         if user:
-            password = User.objects.make_random_password(
+            password = get_random_string(
                 length=10,
                 allowed_chars="abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789",
-            )  # Выполнил даунгрейд до Django 4.2 Есть аналоги?
+            )
             user.set_password(password)
             user.save(update_fields=["password"])
             send_mail(
