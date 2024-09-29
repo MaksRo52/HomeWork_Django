@@ -23,7 +23,7 @@ class ProductForm(StyleFormMixin, ModelForm):
         cleaned_data = self.cleaned_data.get("name")
         words = cleaned_data.split(" ")
         for word in words:
-            if word in [
+            if word.lower() in (
                 "казино",
                 "криптовалюта",
                 "крипта",
@@ -33,11 +33,8 @@ class ProductForm(StyleFormMixin, ModelForm):
                 "обман",
                 "полиция",
                 "радар",
-            ]:
-                raise forms.ValidationError(
-                    "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                    "дешево, бесплатно, обман, полиция, радар."
-                )
+            ):
+                raise forms.ValidationError(f"Нельзя применять слово {word}.")
 
         return cleaned_data
 
@@ -45,7 +42,7 @@ class ProductForm(StyleFormMixin, ModelForm):
         cleaned_data = self.cleaned_data.get("description")
         words = cleaned_data.split(" ")
         for word in words:
-            if word in [
+            if word.lower() in (
                 "казино",
                 "криптовалюта",
                 "крипта",
@@ -55,11 +52,8 @@ class ProductForm(StyleFormMixin, ModelForm):
                 "обман",
                 "полиция",
                 "радар",
-            ]:
-                raise forms.ValidationError(
-                    "Нельзя применять слова из списка : казино, криптовалюта, крипта, биржа, "
-                    "дешево, бесплатно, обман, полиция, радар."
-                )
+            ):
+                raise forms.ValidationError(f"Нельзя применять слово {word}.")
 
         return cleaned_data
 
@@ -76,6 +70,12 @@ class VersionForm(StyleFormMixin, ModelForm):
             raise forms.ValidationError("Версия должна привязана к продукту.")
 
         return cleaned_data
+
+
+class ModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("description", "category","is_published")
 
 
 class CategoryForm(StyleFormMixin, ModelForm):

@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Skystore</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
@@ -14,20 +15,20 @@
         <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
         {% if user.is_authenticated %}
-        <a class="p-2 btn btn-primary" href="{% url 'users:profile' request.user.pk%}">Профиль</a>
-<!--        <a class="p-2 btn btn-danger" href="{% url 'users:logout' %}" >Выход</a>-->
-<!--        Можно было бы использовать в Django выше 4.2-->
+            <a class="p-2 btn btn-primary" href="{% url 'users:profile' request.user.pk %}">Профиль</a>
+            <!--        <a class="p-2 btn btn-danger" href="{% url 'users:logout' %}" >Выход</a>-->
+            <!--        Можно было бы использовать в Django выше 4.2-->
             {% if user.is_staff or user.is_superuser %}
                 <a class="p-2 btn btn-outline-primary" href="{% url 'admin:index' %}">Админка</a>
             {% endif %}
-        <form action="{% url 'users:logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Выйти</button>
-        </form>
-         {% else %}
-        <a class="p-2 btn btn-success" href="{% url 'users:login' %}" >Вход</a>
+            <form action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Выйти</button>
+            </form>
+        {% else %}
+            <a class="p-2 btn btn-success" href="{% url 'users:login' %}">Вход</a>
         {% endif %}
-    
+
     </nav>
 </div>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -39,6 +40,8 @@
 {% block content %}
 {% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>

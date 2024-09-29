@@ -11,7 +11,9 @@ class User(AbstractUser):
     phone_number = PhoneNumberField(
         null=True, blank=True, verbose_name="Номер телефона"
     )
-    country = models.CharField(max_length=50, verbose_name="Страна")
+    country = models.CharField(
+        max_length=50, verbose_name="Страна", null=True, blank=True
+    )
     photo = models.ImageField(
         upload_to="users/photos/",
         verbose_name="Фото",

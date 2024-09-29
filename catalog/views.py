@@ -1,10 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.views import generic
 from django.urls import reverse_lazy
-
-from catalog.forms import ProductForm, VersionForm, CategoryForm
+from catalog.forms import ProductForm, VersionForm, CategoryForm, ModeratorForm
 from catalog.models import Product, Category, Version
 
 
@@ -31,7 +30,10 @@ class ProductDetailView(LoginRequiredMixin, generic.DetailView):
     model = Product
 
 
-class ProductCreateView(LoginRequiredMixin, generic.CreateView):
+class ProductCreateView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView
+):
+    permission_required = "catalog.add_product"
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:home")
@@ -45,7 +47,10 @@ class ProductCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, generic.UpdateView):
+class ProductUpdateView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView
+):
+    permission_required = "catalog.edit_description"
     login_url = "users:login"
     redirect_field_name = "redirect_to"
     model = Product
@@ -74,22 +79,50 @@ class ProductUpdateView(LoginRequiredMixin, generic.UpdateView):
                 self.get_context_data(form=form, formset=formset)
             )
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.autor:
+            return ProductForm
+        if user.has_perm('catalog.edit_description'):
+            return ModeratorForm
+        raise PermissionDenied("У вас нет прав на редактирование этого продукта")
 
-class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
+
+
+class CategoryCreateView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView
+):
+    permission_required = "catalog.add_category"
     login_url = "users:login"
     redirect_field_name = "redirect_to"
     model = Category
     form_class = CategoryForm
 
 
-class ProductDeleteView(LoginRequiredMixin, generic.DeleteView):
+class CategoryUpdateView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView
+):
+    permission_required = "catalog.change_category"
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
+    model = Category
+    form_class = CategoryForm
+
+
+class ProductDeleteView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView
+):
+    permission_required = "catalog.delete_product"
     login_url = "users:login"
     redirect_field_name = "redirect_to"
     model = Product
     success_url = reverse_lazy("catalog:home")
 
 
-class VersionCreateView(LoginRequiredMixin, generic.CreateView):
+class VersionCreateView(
+    LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView
+):
+    permission_required = "catalog.add_version"
     login_url = "users:login"
     redirect_field_name = "redirect_to"
     model = Version

@@ -35,14 +35,17 @@ class Product(models.Model):
     manufactured_at = models.DateTimeField(
         verbose_name="Дата производства продукта", editable=False, blank=True, null=True
     )
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Продукт"
-
         verbose_name_plural = "Продукты"
         ordering = ["name", "price", "created_at", "updated_at", "category"]
-        permissions = [("set_published", "Can publish posts")]
+        permissions = [
+            ("set_published", "Can publish products"),
+            ("edit_description", "Can edit description"),
+            ("edit_category", "Can edit categories"),
+        ]
 
     def __str__(self):
         return self.name
