@@ -8,7 +8,7 @@
                    style="margin-bottom: 50px">Добавить продукт</a>
             {% endif %}
             {% for product in object_list %}
-                {% if product.is_published or user.is_staff or user.is_superuser %}
+                {% if product.is_published or user.is_staff or user.is_superuser or perms.catalog.edit_description %}
                     <div class="col-3">
                         <div class="card mb-4 box-shadow">
                             <div class="card-header">
