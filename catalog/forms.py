@@ -75,7 +75,7 @@ class VersionForm(StyleFormMixin, ModelForm):
 class ModeratorForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
-        fields = ("description", "category","is_published")
+        fields = ("description", "category", "is_published")
 
 
 class CategoryForm(StyleFormMixin, ModelForm):

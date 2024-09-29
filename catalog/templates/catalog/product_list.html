@@ -3,12 +3,12 @@
 {% block content %}
     <div class="container">
         <div class="row text-center">
-            {% if perms.catalog.add_product %}
+            {% if user.is_authenticated %}
                 <a class="btn btn-outline-primary mx-auto" href="{% url 'catalog:product_create' %}"
                    style="margin-bottom: 50px">Добавить продукт</a>
             {% endif %}
             {% for product in object_list %}
-                {% if product.is_published or user.is_staff or user.is_superuser or perms.catalog.edit_description %}
+                {% if product.is_published or perms.catalog.edit_description or user == product.autor %}
                     <div class="col-3">
                         <div class="card mb-4 box-shadow">
                             <div class="card-header">
@@ -28,12 +28,12 @@
                                     <a class="btn btn-sm btn-outline-primary"
                                        href="{% url 'catalog:product_info' product.pk %}" role="button"
                                        aria-disabled="true">Посмотреть</a>
-                                    {% if perms.catalog.edit_description %}
+                                    {% if perms.catalog.edit_description or user == product.autor %}
                                         <a class="btn btn-sm btn-outline-success"
                                            href="{% url 'catalog:product_update' product.pk %}" role="button"
                                            aria-disabled="true">Изменить</a>
                                     {% endif %}
-                                    {% if perms.catalog.delete_product %}
+                                    {% if perms.catalog.delete_product or user == product.autor %}
                                         <a class="btn btn-sm btn-outline-danger"
                                            href="{% url 'catalog:product_delete' product.pk %}"
                                            role="button">Удалить</a>
