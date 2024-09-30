@@ -17,6 +17,8 @@ psycopg2 = "^2.9.9"
 requests = "^2.32.3"
 django-phonenumber-field = {extras = ["phonenumberslite"], version = "^8.0.0"}
 redis = "^5.1.0"
+cache = "^1.0.3"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]

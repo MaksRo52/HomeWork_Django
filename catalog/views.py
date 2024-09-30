@@ -5,6 +5,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from catalog.forms import ProductForm, VersionForm, CategoryForm, ModeratorForm
 from catalog.models import Product, Category, Version
+from catalog.services import get_product_from_cache, get_category_from_cache
 
 
 class ProductListView(generic.ListView):
@@ -18,6 +19,9 @@ class ProductListView(generic.ListView):
             ).first()
             product.active_version = active_version
         return context_data
+
+    def get_queryset(self):
+        return get_product_from_cache()
 
 
 class ContactsView(generic.TemplateView):
@@ -112,3 +116,10 @@ class VersionCreateView(LoginRequiredMixin, generic.CreateView):
     redirect_field_name = "redirect_to"
     model = Version
     form_class = VersionForm
+
+
+class CategoryListView(generic.ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_category_from_cache()
